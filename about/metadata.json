@@ -1,0 +1,12 @@
+{
+  "id": "com.local.memoryinsights",
+  "name": "Memory Insights",
+  "author": "xXCoolUsernameXx",
+  "modVer": "0.2.0",
+  "supportedGameVer": [
+    "*"
+  ],
+  "assemblies": [
+    "bin/Debug/netstandard2.1/MemoryInsights.dll"
+  ]
+}
