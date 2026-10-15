@@ -42,6 +42,26 @@ This demonstrates a read-only object-discovery pattern that does not need Harmon
 Reference:
 - https://github.com/chengchulian/DewMod/blob/master/DewRoomGuidance/src/ui/RoomGuidanceOverlay.cs
 
+## Verified: Essence tooltip interception and target Memory context
+
+`AreMyGemsCompatible` patches:
+
+```csharp
+[HarmonyPatch(typeof(UI_Tooltip_GemDescription), "OnSetup")]
+```
+
+and appends text through the tooltip component's `text` field.
+
+Two useful context paths are already present in the live tooltip object:
+
+1. a socketed Essence can resolve its Memory through `Gem.skill`;
+2. while an Essence is dragged over a Memory slot, `UI_Tooltip_GemDescription.currentObjects[0]` can be a `SkillTrigger` representing the target Memory before the drop occurs.
+
+This means a future "Current -> After Socketing" preview can likely be attached before the user commits the swap, using context the game already passes to the tooltip.
+
+Reference:
+- https://github.com/0x2E757/Shape-of-Dreams-mods/blob/main/mods/AreMyGemsCompatible/TooltipWarning.cs
+
 ## Verified: game-side entity spawning
 
 `DewBootcamp` requires server authority, resolves a resource, then uses `Dew.SpawnEntity(...)`.
@@ -120,7 +140,7 @@ Research findings from gameplay-altering mods are useful because they reveal gam
 
 ## Next research questions
 
-- Which tooltip class/method receives an equipped or hovered `SkillTrigger`?
+- Which Memory/Skill tooltip component should be patched for the Memory's own description?
 - How does the game expose authored tooltip/scaling variables at runtime?
 - Which API gives the most faithful current evaluated value for a `ScalingValue`?
 - How should next-level evaluation be performed without omitting Essence/runtime modifiers?
