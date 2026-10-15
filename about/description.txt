@@ -1,0 +1,4 @@
+[h1]Memory Insights[/h1]
+Client-side quality-of-life tooling for understanding Memories and Essences.
+
+Current development build: shows the local hero and equipped Q/W/E/R Memory runtime objects in a diagnostic overlay. Future versions will add live Memory values, upgrade previews, and Essence contribution/compatibility information.
